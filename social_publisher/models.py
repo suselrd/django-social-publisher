@@ -12,7 +12,7 @@ from social_publisher.provider import registry
 @python_2_unicode_compatible
 class SocialNetwork(models.Model):
     """
-    Represents a social network, where publications will be..
+     Represents a social network, to publish to.
     """
     name = models.CharField(max_length=255)
     social_app = models.ForeignKey(SocialApp)

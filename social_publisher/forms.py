@@ -5,7 +5,7 @@ from social_publisher.models import SocialNetwork
 from social_publisher.settings import SITE_OWNER
 
 
-#TODO: create alternative way for handle: (user_networks,site_networks, and publish_on_site_networks)
+#TODO: create alternative way for handle: (user_networks, site_networks, and publish_on_site_networks)
 class PublicationForm(forms.ModelForm):
     user_networks = forms.ModelMultipleChoiceField(queryset=SocialNetwork.objects.none(),
                                                    widget=forms.CheckboxSelectMultiple,
