@@ -1,0 +1,6 @@
+*.pyc
+.project
+.pydevproject
+.idea
+.tox
+social_publisher.egg-info
