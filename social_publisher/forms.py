@@ -20,10 +20,14 @@ class PublicationForm(forms.ModelForm):
         self.user_networks = None
         self.site_networks = None
         self.user = current_user
-        self.fields['user_networks'].queryset = SocialNetwork.objects.filter(enabled=True,
-                                                                             social_app__socialtoken__account__user=self.user)
-        self.fields['site_networks'].queryset = SocialNetwork.objects.filter(enabled=True,
-                                                                             social_app__socialtoken__account__user__id=SITE_OWNER)
+        self.fields['user_networks'].queryset = SocialNetwork.objects.filter(
+            enabled=True,
+            social_apps__social_app__socialtoken__account__user=self.user
+        )
+        self.fields['site_networks'].queryset = SocialNetwork.objects.filter(
+            enabled=True,
+            social_apps__social_app__socialtoken__account__user__id=SITE_OWNER
+        )
 
     def clean(self):
         self.user_networks = self.cleaned_data['user_networks']
