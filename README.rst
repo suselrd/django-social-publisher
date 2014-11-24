@@ -5,6 +5,12 @@ The main idea of this application is create contents in multiples social network
 
 Changelog
 =========
+0.2.0
+-----
++ Included some changes to support multi-site behavior.
++ The SocialNetwork class could be related with more than one SocialApp. Added a new class named 'SocialNetworkApp'
+to establish the relationship between both classes.
+
 0.1.0
 -----
 + Initial idea.

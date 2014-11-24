@@ -20,24 +20,24 @@ class Publisher(object):
         self.publish_in_owner_account = publish_in_owner_account or False
 
     def publish_video(self, **kwargs):
-        self._validate_kwargs(('video', 'title', 'description', 'networks', 'site_networks'), **kwargs)
+        self._validate_kwargs(('video', 'title', 'description', 'networks'), **kwargs)
         self._publish('publish_video', self.user, self.get_providers(VideoProvider, kwargs.pop('networks')), **kwargs)
-        if self.publish_in_owner_account:
+        if self.publish_in_owner_account and kwargs.get('site_networks', None) is not None:
             self._publish('publish_video', self.user, self.get_providers(VideoProvider, kwargs.pop('site_networks')),
                           **kwargs)
 
     def publish_image(self, **kwargs):
-        self._validate_kwargs(('image', 'message', 'networks', 'site_networks'), **kwargs)
+        self._validate_kwargs(('image', 'message', 'networks'), **kwargs)
         self._publish('publish_image', self.user, self.get_providers(ImageProvider, kwargs.pop('networks')), **kwargs)
-        if self.publish_in_owner_account:
+        if self.publish_in_owner_account and kwargs.get('site_networks', None) is not None:
             self._publish('publish_image', self.get_owner(),
                           self.get_providers(ImageProvider, kwargs.pop('site_networks')), **kwargs)
 
     def publish_message(self, **kwargs):
-        self._validate_kwargs(('message', 'networks', 'site_networks'), **kwargs)
+        self._validate_kwargs(('message', 'networks'), **kwargs)
         self._publish('publish_message', self.user, self.get_providers(MessageProvider, kwargs.pop('networks')),
                       **kwargs)
-        if self.publish_in_owner_account:
+        if self.publish_in_owner_account and kwargs.get('site_networks', None) is not None:
             self._publish('publish_message', self.get_owner(),
                           self.get_providers(MessageProvider, kwargs.pop('site_networks')),
                           **kwargs)

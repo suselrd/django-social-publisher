@@ -15,12 +15,19 @@ class SocialNetwork(models.Model):
      Represents a social network, to publish to.
     """
     name = models.CharField(max_length=255)
-    social_app = models.ForeignKey(SocialApp)
     enabled = models.BooleanField(default=True)
     provider = models.CharField(max_length=50, choices=registry.as_choices())
 
     def __str__(self):
         return self.name
+
+
+class SocialNetworkApp(models.Model):
+    social_network = models.ForeignKey(SocialNetwork, related_name="social_apps")
+    social_app = models.ForeignKey(SocialApp, unique=True)
+
+    def __str__(self):
+        return '%s-%s' % (self.social_network.name, self.social_app.name)
 
 
 @python_2_unicode_compatible
