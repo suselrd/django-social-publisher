@@ -15,5 +15,7 @@ social_publisher/views.py
 social_publisher/provider/__init__.py
 social_publisher/provider/facebook/__init__.py
 social_publisher/provider/facebook/adapter.py
+social_publisher/provider/google/__init__.py
+social_publisher/provider/google/adapter.py
 social_publisher/provider/twitter/__init__.py
 social_publisher/provider/twitter/adapter.py

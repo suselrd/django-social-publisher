@@ -54,6 +54,19 @@ class MessageProvider(object):
         """
 
 
+class ActionMessageProvider(object):
+    __metaclass__ = Provider
+
+    def publish(self, **kwargs):
+        if 'message' in kwargs and 'action_info' in kwargs:
+            #TODO:
+            return self.publish_action_message(kwargs.pop('message'), kwargs.pop('action_info'), **kwargs)
+
+    def publish_action_message(self, message, action_info, **kwargs):
+        """
+        """
+
+
 class Registry(object):
     """
     copy from allauth

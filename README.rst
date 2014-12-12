@@ -5,6 +5,11 @@ The main idea of this application is create contents in multiples social network
 
 Changelog
 =========
+0.3.0
+-----
++ New type of content to publish: ActionMessage
++ New channel: Google+ (ActionMessageProvider). Creates Moments in Google+.
+
 0.2.0
 -----
 + Included some changes to support multi-site behavior.
