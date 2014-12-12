@@ -5,6 +5,17 @@ The main idea of this application is create contents in multiples social network
 
 Changelog
 =========
+0.3.0
+-----
++ Getting publish_message method to accept an 'attachment' dictionary argument (optional) to build complex posts:
+    {
+       "name": "Link name"
+       "link": "http://www.example.com/",
+       "caption": "{*actor*} posted a new review",
+       "description": "This is a longer description of the attachment",
+       "picture": {picture field}
+    }
+
 0.2.0
 -----
 + Included some changes to support multi-site behavior.
