@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from social_publisher.exception import PublisherException
 from social_publisher.models import Publication
-from social_publisher.provider import VideoProvider, ImageProvider, MessageProvider, registry
+from social_publisher.provider import VideoProvider, ImageProvider, MessageProvider, ActionMessageProvider, registry
 from social_publisher.settings import SITE_OWNER
 
 
@@ -40,6 +40,15 @@ class Publisher(object):
         if self.publish_in_owner_account and kwargs.get('site_networks', None) is not None:
             self._publish('publish_message', self.get_owner(),
                           self.get_providers(MessageProvider, kwargs.pop('site_networks')),
+                          **kwargs)
+
+    def publish_action_message(self, **kwargs):
+        self._validate_kwargs(('message', 'action_info', 'networks'), **kwargs)
+        self._publish('publish_action_message', self.user, self.get_providers(ActionMessageProvider, kwargs.pop('networks')),
+                      **kwargs)
+        if self.publish_in_owner_account and kwargs.get('site_networks', None) is not None:
+            self._publish('publish_action_message', self.get_owner(),
+                          self.get_providers(ActionMessageProvider, kwargs.pop('site_networks')),
                           **kwargs)
 
     def _publish(self, fn_name, user, providers, **kwargs):

@@ -30,9 +30,20 @@ class FacebookAdapter(MessageProvider, ImageProvider, VideoProvider, ActionMessa
             raise e
 
     def publish_message(self, message, **kwargs):
+        """
+            Attachment:
+            {"name": "Link name"
+             "link": "http://www.example.com/",
+             "caption": "{*actor*} posted a new review",
+             "description": "This is a longer description of the attachment",
+             "picture": "http://www.example.com/thumbnail.jpg"}
+        """
         try:
             logger.info('trying to update facebook status, for user: %s' % self.user)
-            result = self.facebook.put_wall_post(message)
+            attachment = kwargs.pop('attachment', {})
+            if 'picture' in attachment:
+                attachment['picture'] = '%s%s' % (attachment.pop('domain', ''), attachment['picture'].url)
+            result = self.facebook.put_wall_post(message, attachment)
             logger.info(str(result))
             return result
         except Exception as e:
@@ -70,7 +81,7 @@ class FacebookAdapter(MessageProvider, ImageProvider, VideoProvider, ActionMessa
             result = self.facebook.put_wall_post(
                 message, {
                     'link': action_info.get('link', action_info.get('domain', '')),
-                    'caption': "%s | %s" % (action_info.get('app'), action_info.get('action', '')),
+                    'caption': "%s | %s" % (action_info.get('app', ''), action_info.get('action', '')),
                     'description': "%s %s %s %s %s" % (
                         action_info.get('actor', ''),
                         action_info.get('verb', ''),

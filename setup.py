@@ -8,7 +8,8 @@ setup(
         'social_publisher.provider',
         'social_publisher.provider.twitter',
         'social_publisher.provider.facebook',
-        'social_publisher.provider.google'
+        'social_publisher.provider.google',
+        'social_publisher.provider.linkedin'
     ],
     install_requires=[
         'django>=1.6.1',
@@ -18,7 +19,8 @@ setup(
         'httplib2>=0.8',
         'oauth2client>=1.3',
         'uritemplate>=0.6',
-        'google-api-python-client>=1.3.1'
+        'google-api-python-client>=1.3.1',
+        'python-linkedin>=4.1'
     ],
     url='#',
     license='#',

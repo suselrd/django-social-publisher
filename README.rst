@@ -1,7 +1,7 @@
 ==========================
 Django Social Publisher
 ==========================
-The main idea of this application is create contents in multiples social networks.
+The main idea of this application is create content in multiples social networks.
 
 Changelog
 =========
@@ -9,6 +9,7 @@ Changelog
 -----
 + New type of content to publish: ActionMessage
 + New channel: Google+ (ActionMessageProvider). Creates Moments in Google+.
++ New channel: LinkedIn (ActionMessageProvider). Shares updates in LinkedIn.
 
 0.2.0
 -----
@@ -32,31 +33,14 @@ Usage
 
 1. Run ``python setup.py install`` to install.
 
-2. set in your django-allauth settings SOCIALACCOUNT_PROVIDERS for permission request(in facebook)
-SOCIALACCOUNT_PROVIDERS = {
-    'facebook': {
-        'SCOPE': ['photo_upload',
-                  'publish_actions',
-                  'publish_stream',
-                  'read_stream',
-                  'share_item',
-                  'status_update',
-                  'video_upload',
-                  'create_event',
-                  'user_birthday',
-                  'user_likes',
-                  'user_videos',
-                  'create_event',
-                  'user_photos'
-        ]},
-}
-3. Check the write permission of twitter app.
+2. Configure your social accounts providers (django-allauth setting SOCIALACCOUNT_PROVIDERS)
+3. Make sure yoy set the necessary scopes/permissions to write posts to your social networks.
 4. Add publishers settings
 PUBLISHERS = (
     'social_publisher.provider.facebook',
     'social_publisher.provider.twitter',
 )
-5. Configure social networks, they are the link bettwen django-allauth and publisher providers
+5. Configure social networks, they are the link between django-allauth and publisher providers
 
 6. When you create new content in your site and you want to notify using social networks:
    take present to ways:
