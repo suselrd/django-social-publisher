@@ -37,9 +37,24 @@ class TwitterAdapter(MessageProvider, ImageProvider, ActionMessageProvider):
             raise e
 
     def publish_message(self, message, **kwargs):
+        """
+            Attachment:
+            {"name": "Link name"
+             "link": "http://www.example.com/",
+             "caption": "{*actor*} posted a new review",
+             "description": "This is a longer description of the attachment",
+             "picture": picture}
+        """
         try:
             logger.info('try to update twitter status, for user: %s ' % self.user)
-            result = self.twitter.update_status(status=message)
+            attachment = kwargs.pop('attachment', {})
+            message = message or attachment.get('caption', attachment.get('description', ''))
+            full_message = "%s (%s)" % (message, attachment.get('link')) if 'link' in attachment else message
+            if 'picture' in attachment:
+                img = open(attachment.get('picture').path).read()
+                result = self.twitter.update_status_with_media(status=full_message, media=StringIO(img))
+            else:
+                result = self.twitter.update_status(status=full_message)
             logger.debug(str(result))
             return result
         except Exception as e:
