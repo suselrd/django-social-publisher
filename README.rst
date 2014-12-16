@@ -5,6 +5,10 @@ The main idea of this application is create content in multiples social networks
 
 Changelog
 =========
+0.3.1
+-----
++ Spanish translations files.
+
 0.3.0
 -----
 + New type of content to publish: ActionMessage
