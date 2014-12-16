@@ -49,7 +49,7 @@ class LinkedInAdapter(ActionMessageProvider):
                     action_info.get('app', _(u'application'))
                 ),
                 action_info.get('link', action_info.get('domain', '')),
-                action_info['picture'].url if 'picture' in action_info else ''
+                "%s%s" % (action_info.get('domain', ''), action_info['picture'].url) if 'picture' in action_info else ''
             )
 
             logger.info(str(result))

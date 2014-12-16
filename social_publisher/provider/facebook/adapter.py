@@ -89,7 +89,7 @@ class FacebookAdapter(MessageProvider, ImageProvider, VideoProvider, ActionMessa
                         _(u'using'),
                         action_info.get('app', _(u'application'))
                     ),
-                    'picture': action_info['picture'].url if 'picture' in action_info else ''
+                    'picture': "%s%s" % (action_info.get('domain', ''), action_info['picture'].url) if 'picture' in action_info else ''
                 }
             )
             logger.info(str(result))

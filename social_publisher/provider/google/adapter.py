@@ -69,7 +69,7 @@ class GoogleAdapter(ActionMessageProvider):
                             action_info.get('verb', ''),
                             action_info.get('target', '')
                         ),
-                        "image": action_info['picture'].url if 'picture' in action_info else ''
+                        "image": "%s%s" % (action_info.get('domain', ''), action_info['picture'].url) if 'picture' in action_info else ''
                     }
                 }
 
