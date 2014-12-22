@@ -40,7 +40,7 @@ class FacebookAdapter(MessageProvider, ImageProvider, VideoProvider, ActionMessa
         """
         try:
             logger.info('trying to update facebook status, for user: %s' % self.user)
-            attachment = kwargs.pop('attachment', {})
+            attachment = dict(kwargs.pop('attachment', {}))
             if 'picture' in attachment:
                 attachment['picture'] = '%s%s' % (attachment.pop('domain', ''), attachment['picture'].url)
             result = self.facebook.put_wall_post(message, attachment)
