@@ -5,6 +5,10 @@ The main idea of this application is create content in multiples social networks
 
 Changelog
 =========
+0.3.2
+-----
++ Fixed kwargs modifications in facebook adapter.
+
 0.3.1
 -----
 + Spanish translations files.
