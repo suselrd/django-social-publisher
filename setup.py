@@ -9,6 +9,7 @@ setup(
         'social_publisher.provider.twitter',
         'social_publisher.provider.facebook',
         'social_publisher.provider.google',
+        'social_publisher.provider.youtube',
         'social_publisher.provider.linkedin'
     ],
     install_requires=[
