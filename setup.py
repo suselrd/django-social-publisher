@@ -5,6 +5,7 @@ setup(
     version='0.3.4',
     packages=[
         'social_publisher',
+        'social_publisher.migrations',
         'social_publisher.provider',
         'social_publisher.provider.twitter',
         'social_publisher.provider.facebook',
