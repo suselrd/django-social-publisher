@@ -6,6 +6,7 @@ setup(
     packages=[
         'social_publisher',
         'social_publisher.migrations',
+        'social_publisher.templatetags',
         'social_publisher.provider',
         'social_publisher.provider.twitter',
         'social_publisher.provider.facebook',
