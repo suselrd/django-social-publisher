@@ -5,6 +5,10 @@ The main idea of this application is create content in multiples social networks
 
 Changelog
 =========
+0.3.3
+-----
++ New channel: Youtube (VideoProvider). Post videos in Youtube.
+
 0.3.2
 -----
 + Fixed kwargs modifications in facebook adapter.

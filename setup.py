@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='django-social_publisher',
-    version='0.3.2',
+    version='0.3.3',
     packages=[
         'social_publisher',
         'social_publisher.provider',
