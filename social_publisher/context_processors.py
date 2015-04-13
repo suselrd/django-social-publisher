@@ -4,6 +4,6 @@ from . import provider
 
 def socialpublisher(request):
     ctx = {
-        'providers': provider.registry.get_list()
+        'channels': provider.registry.get_list()
     }
     return dict(socialpublisher=ctx)
