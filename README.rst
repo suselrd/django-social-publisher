@@ -5,6 +5,10 @@ The main idea of this application is create content in multiples social networks
 
 Changelog
 =========
+0.3.5
+-----
++ Added specific context processors values
+
 0.3.4
 -----
 + Added Migrations. (To update to this version, you must first run 'manage.py migrate social_publisher 0001 --fake')
