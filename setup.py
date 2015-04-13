@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='django-social_publisher',
-    version='0.3.3',
+    version='0.3.4',
     packages=[
         'social_publisher',
         'social_publisher.provider',
@@ -21,7 +21,8 @@ setup(
         'oauth2client>=1.3',
         'uritemplate>=0.6',
         'google-api-python-client>=1.3.1',
-        'python-linkedin>=4.1'
+        'python-linkedin>=4.1',
+        'South>=0.8.4'
     ],
     url='#',
     license='#',

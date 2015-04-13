@@ -24,7 +24,7 @@ class SocialNetwork(models.Model):
 
 class SocialNetworkApp(models.Model):
     social_network = models.ForeignKey(SocialNetwork, related_name="social_apps")
-    social_app = models.ForeignKey(SocialApp, unique=True)
+    social_app = models.ForeignKey(SocialApp)
 
     def __str__(self):
         return '%s-%s' % (self.social_network.name, self.social_app.name)
