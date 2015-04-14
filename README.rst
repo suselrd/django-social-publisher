@@ -5,6 +5,10 @@ The main idea of this application is create content in multiples social networks
 
 Changelog
 =========
+0.4.0
+-----
++ General code refactoring (including models). NOT BACKWARDS COMPATIBLE IF DATA MUST BE PRESERVED.
+
 0.3.6
 -----
 + Added a template tag to obtain the enabled social networks by content. (ex: 'video', 'image', 'message', 'action_message')

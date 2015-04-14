@@ -1,6 +1,5 @@
 #coding=utf-8
 from django import forms
-
 from social_publisher.models import SocialNetwork
 from social_publisher.settings import SITE_OWNER
 
@@ -22,11 +21,11 @@ class PublicationForm(forms.ModelForm):
         self.user = current_user
         self.fields['user_networks'].queryset = SocialNetwork.objects.filter(
             enabled=True,
-            social_apps__social_app__socialtoken__account__user=self.user
+            social_apps__socialtoken__account__user=self.user
         )
         self.fields['site_networks'].queryset = SocialNetwork.objects.filter(
             enabled=True,
-            social_apps__social_app__socialtoken__account__user__id=SITE_OWNER
+            social_apps__socialtoken__account__user__id=SITE_OWNER
         )
 
     def clean(self):

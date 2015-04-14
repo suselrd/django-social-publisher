@@ -2,13 +2,13 @@
 import logging
 from allauth.socialaccount.models import SocialToken, SocialApp
 from linkedin import linkedin
-from social_publisher.provider import ActionMessageProvider, registry
+from .. import ActionMessageProvider, registry
 
 logger = logging.getLogger(__name__)
 
 
 class LinkedInAdapter(ActionMessageProvider):
-    id = 'linkedin_oauth2'
+    id = 'linkedin'
     name = 'LinkedInAdapter'
 
     def __init__(self, user, *args, **kwargs):

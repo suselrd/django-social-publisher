@@ -4,7 +4,7 @@ from allauth.socialaccount.models import SocialToken, SocialApp
 from apiclient import discovery
 from oauth2client import GOOGLE_TOKEN_URI
 from oauth2client.client import GoogleCredentials
-from social_publisher.provider import ActionMessageProvider, registry
+from .. import ActionMessageProvider, registry
 
 logger = logging.getLogger(__name__)
 

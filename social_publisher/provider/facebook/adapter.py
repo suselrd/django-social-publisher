@@ -2,7 +2,7 @@
 import logging
 from allauth.socialaccount.models import SocialToken, SocialApp
 from facebook import GraphAPI
-from social_publisher.provider import MessageProvider, ImageProvider, VideoProvider, ActionMessageProvider, registry
+from .. import MessageProvider, ImageProvider, VideoProvider, ActionMessageProvider, registry
 
 logger = logging.getLogger(__name__)
 

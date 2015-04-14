@@ -3,12 +3,12 @@ import httplib
 import httplib2
 import logging
 import random
-from allauth.socialaccount.models import SocialToken, SocialApp
-from apiclient import discovery, http, errors
+import time
 from oauth2client import GOOGLE_TOKEN_URI
 from oauth2client.client import GoogleCredentials
-import time
-from social_publisher.provider import VideoProvider, registry
+from apiclient import discovery, http, errors
+from allauth.socialaccount.models import SocialToken, SocialApp
+from .. import VideoProvider, registry
 
 logger = logging.getLogger(__name__)
 

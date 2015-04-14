@@ -1,5 +1,7 @@
 #coding=utf-8
-from django.contrib.admin import site
-from social_publisher.models import SocialNetwork, SocialNetworkApp, Publication
+from django.contrib import admin
+from social_publisher.models import SocialNetwork, Publication
 
-site.register((SocialNetwork, SocialNetworkApp, Publication))
+
+admin.site.register(SocialNetwork)
+admin.site.register(Publication)

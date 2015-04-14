@@ -25,12 +25,10 @@ class ImageProvider(object):
 
     def publish(self, **kwargs):
         if 'image' in kwargs:
-            #TODO:
             return self.publish_image(kwargs.pop('image'), **kwargs)
 
     def publish_image(self, image, **kwargs):
-        """
-        """
+        raise NotImplementedError()
 
 
 class VideoProvider(object):
@@ -38,12 +36,10 @@ class VideoProvider(object):
 
     def publish(self, **kwargs):
         if 'video' in kwargs:
-            #TODO:
             return self.publish_video(kwargs.pop('video'), **kwargs)
 
     def publish_video(self, video, **kwargs):
-        """
-        """
+        raise NotImplementedError()
 
 
 class MessageProvider(object):
@@ -51,12 +47,10 @@ class MessageProvider(object):
 
     def publish(self, **kwargs):
         if 'message' in kwargs:
-            #TODO:
             return self.publish_message(kwargs.pop('message'), **kwargs)
 
     def publish_message(self, message, **kwargs):
-        """
-        """
+        raise NotImplementedError()
 
 
 class ActionMessageProvider(object):
@@ -64,12 +58,10 @@ class ActionMessageProvider(object):
 
     def publish(self, **kwargs):
         if 'message' in kwargs and 'action_info' in kwargs:
-            #TODO:
             return self.publish_action_message(kwargs.pop('message'), kwargs.pop('action_info'), **kwargs)
 
     def publish_action_message(self, message, action_info, **kwargs):
-        """
-        """
+        raise NotImplementedError()
 
 
 class Registry(object):
