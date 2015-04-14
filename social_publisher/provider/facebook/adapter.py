@@ -7,7 +7,7 @@ from social_publisher.provider import MessageProvider, ImageProvider, VideoProvi
 logger = logging.getLogger(__name__)
 
 
-class FacebookAdapter(MessageProvider, ImageProvider, VideoProvider, ActionMessageProvider):
+class FacebookAdapter(MessageProvider, ImageProvider, ActionMessageProvider):
     id = 'facebook'
     name = 'FacebookAdapter'
 

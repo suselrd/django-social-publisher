@@ -72,9 +72,9 @@ class YoutubeAdapter(VideoProvider):
                         privacyStatus='private' if private else 'public'
                     )
                 ),
-                media_body=http.MediaFileUpload(video, chunksize=-1, resumable=True)
+                media_body=http.MediaFileUpload(video.path, chunksize=-1, resumable=True)
             )
-            result = self._resumable_upload(insert_request)
+            result = self._resumable_upload(insert_request, title)
 
             logger.info(str(result))
             return result

@@ -2,6 +2,11 @@
 from django.conf import settings
 from django.utils import importlib
 
+LABEL_TYPE_IMAGE = 'image'
+LABEL_TYPE_VIDEO = 'video'
+LABEL_TYPE_MESSAGE = 'message'
+LABEL_TYPE_ACTION_MESSAGE = 'action_message'
+
 
 class Provider(type):
     def __init__(cls, what, bases=None, args=None):

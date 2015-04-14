@@ -1,11 +1,11 @@
 #coding=utf-8
 import json
 import logging
-from allauth.socialaccount.models import SocialAccount
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
+from allauth.socialaccount.models import SocialAccount
 from social_publisher.exception import PublisherException
-from social_publisher.models import Publication
+from social_publisher.models import Publication, SocialNetwork
 from social_publisher.provider import VideoProvider, ImageProvider, MessageProvider, ActionMessageProvider, registry
 from social_publisher.settings import SITE_OWNER
 
@@ -59,13 +59,17 @@ class Publisher(object):
                 if hasattr(provider_instance, fn_name):
                     result = getattr(provider_instance, fn_name)(**kwargs)
                 else:
-                    return
+                    continue
                 publication_args.update({'data': result})
             except Exception as e:
                 publication_args.update({'data': json.dumps(str(e))})
             finally:
                 #todo if an user have more than one account on same user and same provider :X
-                account = SocialAccount.objects.filter(user=user, provider=provider.id).first()
+                social_network = SocialNetwork.objects.get(provider=provider.id)
+                account = SocialAccount.objects.filter(
+                    user=user,
+                    provider__in=[network_app.social_app.provider for network_app in social_network.social_apps.all()]
+                ).first()
                 publication_args.update({'social_account': account})
                 if 'instance' in kwargs:
                     instance = kwargs.get('instance')
