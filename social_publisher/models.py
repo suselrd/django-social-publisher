@@ -3,10 +3,12 @@ from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 from django.db import models
+from django.dispatch import receiver
 from django.utils.encoding import python_2_unicode_compatible
 from allauth.socialaccount.fields import JSONField
 from allauth.socialaccount.models import SocialAccount, SocialApp
 from provider import registry
+from signals import publication_in_channel
 
 
 @python_2_unicode_compatible
@@ -37,3 +39,16 @@ class Publication(models.Model):
 
     def __str__(self):
         return "Publication: %d " % self.id
+
+
+@receiver(publication_in_channel, dispatch_uid='log_publication')
+def log_publication(instance, user, social_account, data, **kwargs):
+    if instance:
+        ctype = ContentType.objects.get_for_model(instance)
+        Publication.objects.create(
+            content_type=ctype,
+            object_id=instance.pk,
+            user=user,
+            social_account=social_account,
+            data=data
+        )

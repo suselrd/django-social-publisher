@@ -2,12 +2,12 @@
 import json
 import logging
 from django.contrib.auth.models import User
-from django.contrib.contenttypes.models import ContentType
 from allauth.socialaccount.models import SocialAccount
-from social_publisher.exception import PublisherException
-from social_publisher.models import Publication, SocialNetwork
-from social_publisher.provider import VideoProvider, ImageProvider, MessageProvider, ActionMessageProvider, registry
-from social_publisher.settings import SITE_OWNER
+from exception import PublisherException
+from models import SocialNetwork
+from provider import VideoProvider, ImageProvider, MessageProvider, ActionMessageProvider, registry
+from settings import SITE_OWNER
+from signals import publication_in_channel, publication
 
 
 logger = logging.getLogger(__name__)
@@ -55,31 +55,55 @@ class Publisher(object):
 
     def _publish(self, fn_name, channel_type, **kwargs):
         if not self.user:
-            return
+            return None
         providers = self._get_providers(channel_type, kwargs.pop('networks'))
-        publication_args = {'user': self.user}
+        instance = kwargs.get('instance', None)
+        results = {}
         for provider in providers:
             try:
                 provider_instance = provider(self.user)
                 if hasattr(provider_instance, fn_name):
-                    result = getattr(provider_instance, fn_name)(**kwargs)
+                    data = getattr(provider_instance, fn_name)(**kwargs)
+                    status = "SUCCESS"
                 else:
                     continue
-                publication_args.update({'data': result})
             except Exception as e:
-                publication_args.update({'data': json.dumps(str(e))})
+                data = json.dumps(str(e))
+                status = "ERROR"
             finally:
                 #todo if an user have more than one account on same user and same provider :X
-                social_network = SocialNetwork.objects.get(provider=provider.id)
                 account = SocialAccount.objects.filter(
                     user=self.user,
-                    provider__in=[social_app.provider for social_app in social_network.social_apps.all()]
+                    provider__in=[
+                        social_app.provider
+                        for social_app in SocialNetwork.objects.get(provider=provider.id).social_apps.all()
+                    ]
                 ).first()
-                publication_args.update({'social_account': account})
-                if 'instance' in kwargs:
-                    instance = kwargs.get('instance')
-                    ctype = ContentType.objects.get_for_model(instance)
-                    Publication.objects.create(content_type=ctype, object_id=instance.pk, **publication_args)
+                results.update({
+                    provider.id: {
+                        "status": status,
+                        "response": data,
+                        'social_account': account
+                    }
+                })
+                publication_in_channel.send(
+                    sender=type(instance),
+                    instance=instance,
+                    user=self.user,
+                    channel_type=channel_type,
+                    channel=provider.id,
+                    social_account=account,
+                    data=data,
+                    status=status
+                )
+
+        publication.send(
+            sender=type(instance),
+            instance=instance,
+            user=self.user,
+            channel_type=channel_type,
+            results=results
+        )
 
     def _get_providers(self, clazz, networks):
         return [p for p in clazz.providers if networks.filter(provider=p.id).exists()]
@@ -97,6 +121,6 @@ class Publisher(object):
         return User.objects.get(id=SITE_OWNER)
 
 
-def get_publisher(user, publish_in_owner_account):
+def get_publisher(user=None, publish_in_owner_account=False):
     registry.load()
     return Publisher(user, publish_in_owner_account)

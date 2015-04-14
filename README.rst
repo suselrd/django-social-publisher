@@ -5,6 +5,10 @@ The main idea of this application is create content in multiples social networks
 
 Changelog
 =========
+0.5.0
+-----
++ Send signals in different moments of social publication, in order to provide hooks to other applications to connect to.
+
 0.4.0
 -----
 + General code refactoring (including models). NOT BACKWARDS COMPATIBLE IF DATA MUST BE PRESERVED.

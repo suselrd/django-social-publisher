@@ -14,6 +14,7 @@ CONTENT_CLASS = {
     LABEL_TYPE_ACTION_MESSAGE: ActionMessageProvider
 }
 
+
 @register.assignment_tag(takes_context=True)
 def get_social_networks_by_content(context, content):
     if not content in CONTENT_CLASS:
@@ -36,5 +37,5 @@ def get_social_networks_by_content(context, content):
 @register.assignment_tag
 def get_current_social_app(social_network):
     return social_network.social_apps.get(
-        social_app__sites__id=Site.objects.get_current().id
-    ).social_app
+        sites__id=Site.objects.get_current().id
+    )
